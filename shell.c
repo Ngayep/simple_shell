@@ -8,7 +8,7 @@
 
 int main(void)
 {
-	char prompt[250];
+	char *prompt = "/bin/ls";
 
 	while (1)
 	{
