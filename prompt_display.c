@@ -19,5 +19,5 @@ void myprintf(const char *str)
 
 void prompt_display(void)
 {
-	myprintf("MySimpleShell$ ");
+	myprintf("$ ");
 }

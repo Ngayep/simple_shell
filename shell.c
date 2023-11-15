@@ -14,7 +14,7 @@ int main(void)
 	while (1)
 	{
 		prompt_display();
-		prompt_read(&prompt, &prompt_size);
+		prompt_read(&prompt, &prompt_size, "./hsh");
 		prompt_exec(prompt);
 
 		free(prompt);

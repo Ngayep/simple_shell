@@ -33,16 +33,7 @@ void tokenize_input(const char *input, Node **argv, int *argc)
 		(*argc)++;
 		token = strtok(NULL, " ");
 	}
-	if (*argc > 0)
-	{
-		handle_exit(*argv);
-		handle_env(*argv);
-		free(input_copy);
-	}
-	if (input_copy != NULL)
-	{
-		free(input_copy);
-	}
+	free(input_copy);
 }
 
 /**
@@ -111,6 +102,11 @@ void prompt_exec(const char *prompt)
 		int argc, j;
 
 		tokenize_input(prompt, &argv, &argc);
+		if (argc > 0)
+		{
+			handle_exit(*argv);
+			handle_env(*argv);
+		}
 
 		argv_array = convert_to_argv(argv, &argc);
 
