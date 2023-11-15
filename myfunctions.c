@@ -95,7 +95,7 @@ char **convert_to_argv(Node *head, int *argc)
 	char **argv_array = (char **)malloc((*argc + 1) * sizeof(char *));
 	int i = 0;
 	Node *current = head;
-	
+
 	*argc = 0;
 
 	while (current != NULL)

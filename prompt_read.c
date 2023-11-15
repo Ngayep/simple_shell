@@ -17,14 +17,14 @@ void prompt_read(char **prompt, size_t *len)
 	{
 		perror("prompt_read");
 		exit(EXIT_FAILURE);
-	} 
+	}
 	else if (read_bytes == 0 || (*prompt)[0] == '\n')
 	{
 		myprintf("\n");
 		exit(EXIT_SUCCESS);
 	}
 
-	if ((*prompt)[read_bytes -1] == '\n')
+	if ((*prompt)[read_bytes - 1] == '\n')
 	{
 		(*prompt)[read_bytes - 1] = '\0';
 	}

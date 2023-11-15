@@ -33,18 +33,11 @@ void tokenize_input(const char *input, Node **argv, int *argc)
 		(*argc)++;
 		token = strtok(NULL, " ");
 	}
-	if (*argc > 0 && _strcmp((*argv)->data, "exit") == 0)
+	if (*argc > 0)
 	{
-		free_list(*argv);
+		handle_exit(*argv);
+		handle_env(*argv);
 		free(input_copy);
-		exit(EXIT_SUCCESS);
-	}
-	if (*argc > 0 && _strcmp((*argv)->data, "env"))
-	{
-		print_env();
-		free_list(*argv);
-		free(input_copy);
-		exit(EXIT_SUCCESS);
 	}
 	if (input_copy != NULL)
 	{
@@ -116,13 +109,13 @@ void prompt_exec(const char *prompt)
 		char **argv_array;
 		Node *argv = NULL;
 		int argc, j;
-		
+
 		tokenize_input(prompt, &argv, &argc);
 
 		argv_array = convert_to_argv(argv, &argc);
 
 		execute_command(argv_array);
-		
+
 		free_list(argv);
 
 		for (j = 0; j < argc; j++)

@@ -34,6 +34,8 @@ char **convert_to_argv(Node *head, int *argc);
 void execute_command(char *argv[]);
 void print_env(void);
 void wait_check_status(pid_t child_pid);
+void handle_exit(Node *argv);
+void handle_env(Node *argv);
 int _strcmp(const char *str1, const char *str2);
 char *_strdup(const char *s);
 size_t _strlen(const char *s);
