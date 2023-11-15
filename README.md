@@ -18,7 +18,7 @@ It splits the input into tokens, where each token represents a part of the comma
 This parsing phase is responsible for understanding how the command is structured.
 e.g of parsing
 "This is a great project"
-This 
+This
 is
 a
 great
@@ -30,16 +30,16 @@ It looks for the executable in directories specified by the PATH environment var
 eg: /bin/bash
 
 5. Creating a Child Process:
-If the executable is found, the shell creates a child process using system calls like 
+If the executable is found, the shell creates a child process using system calls like
 fork. The child process is a separate instance of the shell in which the command will be executed.
 
 6. Executing the Command:
-The child process uses system calls like 
+The child process uses system calls like
 exec to replace its own program with the program of the command to be executed.
 The new program takes over the child process's execution, and the command runs in this process.
 
 7. Wait for Command Completion:
-The parent shell (the original process) waits for the child process to complete using functions like wait or waitpid. 
+The parent shell (the original process) waits for the child process to complete using functions like wait or waitpid.
 This ensures that the shell doesn't display the next prompt until the command finishes executing.
 
 8. Displaying Output:
