@@ -2,49 +2,32 @@
 
 /**
  * prompt_read - reads the input at the prompt
- * @prompt: command entered at the prompt
- * @len: size of the command
+ * @prompt: pointer to the command entered at the prompt
+ * @len: pointer to the  size of the command
  * Return: 0
  */
 
-void prompt_read(char *prompt, size_t len)
+void prompt_read(char **prompt, size_t *len)
 {
-	size_t prompt_len;
-	size_t i;
+	ssize_t read_bytes;
 
-	char *trimmed;
+	read_bytes = getline(prompt, len, stdin);
 
-	if (fgets(prompt, len, stdin) == NULL)
+	if (read_bytes == -1)
 	{
-		if (feof(stdin))
-		{
-			myprintf("\n");
-			exit(EXIT_SUCCESS);
-		} else
-		{
-			perror("prompt_read");
-			exit(EXIT_FAILURE);
-		}
-	}
-
-	prompt_len = _strlen(prompt);
-
-	for (i = 0; i < prompt_len && prompt[i] != '\n'; i++)
-	{
-
-	}
-	i = 0;
-
-	trimmed = (char *)malloc((i + 1) * sizeof(char));
-	if (trimmed == NULL)
-	{
-		perror("malloc failed");
+		perror("prompt_read");
 		exit(EXIT_FAILURE);
+	} 
+	else if (read_bytes == 0 || (*prompt)[0] == '\n')
+	{
+		myprintf("\n");
+		exit(EXIT_SUCCESS);
 	}
-	prompt[i] = '\0';
 
-	_strcpy(trimmed, prompt);
-	_strcpy(prompt, trimmed);
+	if ((*prompt)[read_bytes -1] == '\n')
+	{
+		(*prompt)[read_bytes - 1] = '\0';
+	}
 }
 
 /**

@@ -26,7 +26,7 @@ extern char **environ;
 void myprintf(const char *str);
 void prompt_display(void);
 void prompt_exec(const char *prompt);
-void prompt_read(char *prompt, size_t len);
+void prompt_read(char **prompt, size_t *len);
 void tokenize_input(const char *input, Node **argv, int *argc);
 Node *append_node(Node *head, const char *data);
 void free_list(Node *head);
