@@ -9,7 +9,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
-# <fcntl.h>
+#include <fcntl.h>
 
 /**
  * struct Node - list of arguments
