@@ -7,7 +7,7 @@
 
 void handle_exit(Node *argv)
 {
-	if (argv != NULL && _strcmp(argv->data, "exit") == 0)
+	if (argv != NULL && argv->data != NULL && _strcmp(argv->data, "exit") == 0)
 	{
 		free_list(argv);
 		exit(EXIT_SUCCESS);
@@ -21,7 +21,7 @@ void handle_exit(Node *argv)
 
 void handle_env(Node *argv)
 {
-	if (argv != NULL && _strcmp(argv->data, "env") == 0)
+	if (argv != NULL && argv->data != NULL && _strcmp(argv->data, "env") == 0)
 	{
 		print_env();
 		free_list(argv);
