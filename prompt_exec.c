@@ -104,8 +104,8 @@ void prompt_exec(const char *prompt)
 		tokenize_input(prompt, &argv, &argc);
 		if (argc > 0)
 		{
-			handle_exit(*argv);
-			handle_env(*argv);
+			handle_exit(argv);
+			handle_env(argv);
 		}
 
 		argv_array = convert_to_argv(argv, &argc);
