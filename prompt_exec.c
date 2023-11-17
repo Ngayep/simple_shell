@@ -21,7 +21,8 @@ void tokenize_input(const char *input, Node **argv, int *argc)
 
 	if (input_copy == NULL)
 	{
-		return;
+		perror("tokenize_input: strdup failed");
+		exit(EXIT_FAILURE);
 	}
 
 	token = strtok(input_copy, " ");
@@ -46,9 +47,7 @@ void execute_command(char *argv[])
 	{
 		if (execve(argv[0], argv, NULL) == -1)
 		{
-			myprintf("Failure to execute.\n");
-			myprintf(argv[0]);
-			perror("execve");
+			perror("execute_command: execve failed");
 			exit(EXIT_FAILURE);
 		}
 	}
@@ -89,6 +88,9 @@ void wait_check_status(pid_t child_pid)
 void prompt_exec(const char *prompt)
 {
 	pid_t child_pid = fork();
+	char **argv_array = NULL;
+	Node *argv = NULL;
+	int argc, j;
 
 	if (child_pid == -1)
 	{
@@ -97,10 +99,6 @@ void prompt_exec(const char *prompt)
 	}
 	else if (child_pid == 0)
 	{
-		char **argv_array;
-		Node *argv = NULL;
-		int argc, j;
-
 		tokenize_input(prompt, &argv, &argc);
 		if (argc > 0)
 		{
@@ -109,11 +107,13 @@ void prompt_exec(const char *prompt)
 		}
 
 		argv_array = convert_to_argv(argv, &argc);
-
 		execute_command(argv_array);
-
 		free_list(argv);
-
+		exit(EXIT_SUCCESS);
+	}
+	else
+	{
+		wait_check_status(child_pid);
 		for (j = 0; j < argc; j++)
 		{
 			free(argv_array[j]);
@@ -121,9 +121,5 @@ void prompt_exec(const char *prompt)
 		free(argv_array);
 
 		exit(EXIT_SUCCESS);
-	}
-	else
-	{
-		wait_check_status(child_pid);
 	}
 }

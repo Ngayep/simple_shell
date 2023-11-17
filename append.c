@@ -13,7 +13,6 @@ Node *append_node(Node *head, const char *data)
 	char *copied_data;
 	Node *current;
 
-	(void)data;
 	current = head;
 	new_node = (Node *)malloc(sizeof(Node));
 
@@ -31,6 +30,8 @@ Node *append_node(Node *head, const char *data)
 	}
 	if (head == NULL)
 	{
+		new_node->data = copied_data;
+		new_node->next = NULL;
 		return (new_node);
 	}
 	while (current->next != NULL)
@@ -38,6 +39,9 @@ Node *append_node(Node *head, const char *data)
 		current = current->next;
 	}
 	current->next = new_node;
+	new_node->data = copied_data;
+	new_node->next = NULL;
+
 	return (head);
 }
 

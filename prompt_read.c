@@ -23,13 +23,11 @@ void prompt_read(char **prompt, size_t *len, char *program_name)
 
 	if (read_bytes == -1)
 	{
-		write(STDERR_FILENO, program_name, _strlen(program_name));
-		write(STDERR_FILENO, ": prompt_read: getline failed\n", 29);
+		perror(": prompt_read: getline failed");
 		exit(EXIT_FAILURE);
 	}
-	else if (read_bytes == 0 || (*prompt)[0] == '\n')
+	else if (read_bytes == 0)
 	{
-		myprintf("\n");
 		exit(EXIT_SUCCESS);
 	}
 

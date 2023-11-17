@@ -6,11 +6,11 @@
  */
 void print_env(void)
 {
-	char *env;
+	char **env;
 
-	for (env = *environ; env != NULL; env = *(environ + 1))
+	for (env = environ; *env != NULL; env++)
 	{
-		write(STDOUT_FILENO, env, _strlen(env));
+		write(STDOUT_FILENO, *env, _strlen(*env));
 		write(STDOUT_FILENO, "\n", 1);
 	}
 }
