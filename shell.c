@@ -21,8 +21,6 @@ int main(void)
 		}
 		prompt_exec(prompt);
 
-		free(prompt);
-		prompt = NULL;
 		prompt_size = 0;
 	}
 	return (0);

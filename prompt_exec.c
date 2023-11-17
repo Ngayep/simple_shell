@@ -109,6 +109,11 @@ void prompt_exec(const char *prompt)
 		argv_array = convert_to_argv(argv, &argc);
 		execute_command(argv_array);
 		free_list(argv);
+		for (j = 0; j < argc; j++)
+		{
+			free(argv_array[j]);
+		}
+		free(argv_array);
 		exit(EXIT_SUCCESS);
 	}
 	else
