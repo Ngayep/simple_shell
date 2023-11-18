@@ -9,6 +9,7 @@ void handle_exit(Node *argv)
 {
 	if (argv != NULL && argv->data != NULL && _strcmp(argv->data, "exit") == 0)
 	{
+		myprintf("Exiting the shell. Goodbye!\n");
 		free_list(argv);
 		exit(EXIT_SUCCESS);
 	}
