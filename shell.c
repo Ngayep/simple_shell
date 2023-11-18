@@ -19,6 +19,11 @@ int main(void)
 		{
 			continue;
 		}
+		if (_strcmp(prompt, "exit") == 0)
+		{
+			free(prompt);
+			break;
+		}
 		prompt_exec(prompt);
 
 		prompt_size = 0;
