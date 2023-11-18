@@ -40,16 +40,30 @@ void tokenize_input(const char *input, Node **argv, int *argc)
 /**
  * execute_command - execute a command with arguments
  * @argv: array of arguments
+ * @command: command to be executed
  */
-void execute_command(char *argv[])
+void execute_command(const char *command, char *argv[])
 {
-	if (argv[0] != NULL)
+	char *full_path = searchpath(command);
+
+	if (full_path != NULL)
 	{
-		if (execve(argv[0], argv, NULL) == -1)
+		if (execve(full_path, argv, NULL) == -1)
 		{
 			perror("execute_command: execve failed");
 			exit(EXIT_FAILURE);
 		}
+	}
+	else
+	{
+		char not_found_msg[] = "Command not found:";
+		size_t cmd_len = _strlen(command);
+		size_t not_found_len = sizeof(not_found_msg) - 1;
+
+		write(STDOUT_FILENO, not_found_msg, not_found_len);
+		write(STDOUT_FILENO, command, cmd_len);
+		write(STDOUT_FILENO, "\n", 1);
+		exit(EXIT_FAILURE);
 	}
 }
 
@@ -90,7 +104,7 @@ void prompt_exec(const char *prompt)
 	pid_t child_pid = fork();
 	char **argv_array = NULL;
 	Node *argv = NULL;
-	int argc, j;
+	int j, argc = 0;
 
 	if (child_pid == -1)
 	{
@@ -107,7 +121,7 @@ void prompt_exec(const char *prompt)
 		}
 
 		argv_array = convert_to_argv(argv, &argc);
-		execute_command(argv_array);
+		execute_command(prompt, argv_array);
 		free_list(argv);
 		for (j = 0; j < argc; j++)
 		{
